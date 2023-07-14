@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- https://github.com/redhat-appstudio/managed-gitops/manifests/overlays/appstudio-staging-cluster?ref=5580df032639c2e96962f321dcac954769df875c
+- https://github.com/appsvc-rhtap/managed-gitops/manifests/overlays/appstudio-staging-cluster?ref=9094fc95c5e5c490ff2860bcf715baa4a0e25e39
 - ../openshift-gitops/overlays/production-and-dev
 
 images:
