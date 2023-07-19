@@ -211,10 +211,10 @@ fi
 # Create the root Application
 oc apply -k $ROOT/argo-cd-apps/app-of-app-sets/development
 
-while [ "$(oc get applications.argoproj.io all-application-sets -n openshift-gitops -o jsonpath='{.status.health.status} {.status.sync.status}')" != "Healthy Synced" ]; do
-  echo Waiting for sync of all-application-sets argoCD app
-  sleep 5
-done
+# while [ "$(oc get applications.argoproj.io all-application-sets -n openshift-gitops -o jsonpath='{.status.health.status} {.status.sync.status}')" != "Healthy Synced" ]; do
+#   echo Waiting for sync of all-application-sets argoCD app
+#   sleep 5
+# done
 
 # Init Vault
 $ROOT/hack/spi/vault-init.sh
@@ -240,41 +240,41 @@ while [ -n "$(oc get applications.argoproj.io -n openshift-gitops -o jsonpath='{
   sleep 5
 done
 
-INTERVAL=10
-while :; do
-  STATE=$(oc get apps -n openshift-gitops --no-headers)
-  NOT_DONE=$(echo "$STATE" | grep -v "Synced[[:blank:]]*Healthy" || true)
-  echo "$NOT_DONE"
-  if [ -z "$NOT_DONE" ]; then
-     echo All Applications are synced and Healthy
-     break
-  else
-     UNKNOWN=$(echo "$NOT_DONE" | grep Unknown | grep -v Progressing | cut -f1 -d ' ') || :
-     if [ -n "$UNKNOWN" ]; then
-       for app in $UNKNOWN; do
-         ERROR=$(oc get -n openshift-gitops applications.argoproj.io $app -o jsonpath='{.status.conditions}')
-         if echo "$ERROR" | grep -q 'context deadline exceeded'; then
-           echo Refreshing $app
-           oc patch applications.argoproj.io $app -n openshift-gitops --type merge -p='{"metadata": {"annotations":{"argocd.argoproj.io/refresh": "soft"}}}'
-           while [ -n "$(oc get applications.argoproj.io -n openshift-gitops $app -o jsonpath='{.metadata.annotations.argocd\.argoproj\.io/refresh}')" ]; do
-             sleep 5
-           done
-           echo Refresh of $app done
-           continue 2
-         fi
-         echo $app failed with:
-         if [ -n "$ERROR" ]; then
-           echo "$ERROR"
-         else
-           oc get -n openshift-gitops applications.argoproj.io $app -o yaml
-         fi
-       done
-       exit 1
-     fi
-     echo Waiting $INTERVAL seconds for application sync
-     sleep $INTERVAL
-  fi
-done
+# INTERVAL=10
+# while :; do
+#   STATE=$(oc get apps -n openshift-gitops --no-headers)
+#   NOT_DONE=$(echo "$STATE" | grep -v "Synced[[:blank:]]*Healthy" || true)
+#   echo "$NOT_DONE"
+#   if [ -z "$NOT_DONE" ]; then
+#      echo All Applications are synced and Healthy
+#      break
+#   else
+#      UNKNOWN=$(echo "$NOT_DONE" | grep Unknown | grep -v Progressing | cut -f1 -d ' ') || :
+#      if [ -n "$UNKNOWN" ]; then
+#        for app in $UNKNOWN; do
+#          ERROR=$(oc get -n openshift-gitops applications.argoproj.io $app -o jsonpath='{.status.conditions}')
+#          if echo "$ERROR" | grep -q 'context deadline exceeded'; then
+#            echo Refreshing $app
+#            oc patch applications.argoproj.io $app -n openshift-gitops --type merge -p='{"metadata": {"annotations":{"argocd.argoproj.io/refresh": "soft"}}}'
+#            while [ -n "$(oc get applications.argoproj.io -n openshift-gitops $app -o jsonpath='{.metadata.annotations.argocd\.argoproj\.io/refresh}')" ]; do
+#              sleep 5
+#            done
+#            echo Refresh of $app done
+#            continue 2
+#          fi
+#          echo $app failed with:
+#          if [ -n "$ERROR" ]; then
+#            echo "$ERROR"
+#          else
+#            oc get -n openshift-gitops applications.argoproj.io $app -o yaml
+#          fi
+#        done
+#        exit 1
+#      fi
+#      echo Waiting $INTERVAL seconds for application sync
+#      sleep $INTERVAL
+#   fi
+# done
 
 # Wait for all tekton components to be installed
 # The status of a tektonconfig CR should be "type: Ready, status: True" once the install is completed
