@@ -1,11 +1,5 @@
-- op: add
-  path: /spec/template/spec/containers/-/resources
-  value:
-    requests:
-      cpu: 1m
-      memory: 1Mi
-- op: add
-  path: /spec/template/spec/initContainers/-/resources
+- op: replace
+  path: /spec/template/spec/containers/0/resources
   value:
     requests:
       cpu: 1m
