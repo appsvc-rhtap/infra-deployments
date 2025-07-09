@@ -60,6 +60,8 @@ spec:
     chart: postgresql
     helm:
       parameters:
+      - name: image.registry
+        value: mirror.gcr.io
       - name: image.tag
         value: 17.5.0
       - name: tls.enabled
