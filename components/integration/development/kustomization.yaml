@@ -40,8 +40,8 @@ patches:
       kind: Deployment
       name: integration-service-controller-manager
     path: sealights-token-patch.yaml
-components:
-  - ../rh-certs
   - path: low-resources-patch.yaml
     target:
       kind: Deployment
+components:
+  - ../rh-certs
