@@ -4,3 +4,8 @@ resources:
   - ../base
 patchesStrategicMerge:
   - patch-delete-external-secrets.yaml
+
+patches:
+  - path: ../../../patches/low-resources-patch.yaml
+    target:
+      kind: Deployment

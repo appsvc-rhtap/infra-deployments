@@ -31,3 +31,6 @@ patches:
       kind: Deployment
       group: apps
       version: v1
+  - path: ../../patches/low-resources-patch.yaml
+    target:
+      kind: Deployment

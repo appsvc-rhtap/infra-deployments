@@ -10,3 +10,8 @@ images:
   newTag: 3d04d7a4aa16fe70efc90512d2fb02d27b70a36a
 
 namespace: project-controller
+
+patches:
+  - path: ../../patches/low-resources-patch.yaml
+    target:
+      kind: Deployment

@@ -17,3 +17,8 @@ commonAnnotations:
 
 components:
   - ../components/rh-certs
+
+patches:
+  - path: ../../patches/low-resources-patch.yaml
+    target:
+      kind: Deployment

@@ -69,3 +69,6 @@ patches:
       - op: replace
         path: /spec/template/spec/containers/0/image
         value: "quay.io/minio/operator:v5.0.15"
+  - path: ../../patches/low-resources-patch.yaml
+    target:
+      kind: Deployment

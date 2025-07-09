@@ -6,3 +6,8 @@ resources:
 
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+
+patches:
+  - path: ../../../patches/low-resources-patch.yaml
+    target:
+      kind: Deployment
