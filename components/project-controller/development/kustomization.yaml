@@ -12,6 +12,6 @@ images:
 namespace: project-controller
 
 patches:
-  - path: ../../patches/low-resources-patch.yaml
+  - path: low-resources-patch.yaml
     target:
       kind: Deployment

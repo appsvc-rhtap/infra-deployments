@@ -5,6 +5,6 @@ resources:
 
 namespace: application-service
 patches:
-  - path: ../../patches/low-resources-patch.yaml
+  - path: low-resources-patch.yaml
     target:
       kind: Deployment

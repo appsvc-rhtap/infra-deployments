@@ -20,6 +20,6 @@ patches:
       kind: Deployment
       name: controller-manager
     path: sealights-token-patch.yaml
-  - path: ../../patches/low-resources-patch.yaml
+  - path: low-resources-patch.yaml
     target:
       kind: Deployment

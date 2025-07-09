@@ -37,6 +37,6 @@ patches:
       version: v1
       kind: Job
       name: konflux-kyverno-migrate-resources
-  - path: ../../patches/low-resources-patch.yaml
+  - path: low-resources-patch.yaml
     target:
       kind: Deployment

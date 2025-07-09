@@ -16,6 +16,6 @@ patches:
     target:
       name: notification-controller-controller-manager
       kind: Deployment
-  - path: ../../patches/low-resources-patch.yaml
+  - path: low-resources-patch.yaml
     target:
       kind: Deployment
